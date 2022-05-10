@@ -13,7 +13,3 @@ class Teacher < Person
     true
   end
 end
-
-teacher = Teacher.new('Code Instructor', 25, 'Dev. Dire Akanbi', parent_permission: false)
-
-puts teacher.can_use_services?
