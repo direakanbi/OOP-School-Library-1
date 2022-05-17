@@ -56,58 +56,6 @@ class Methods
       puts 'Person not created.'
     end
   end
-  
-  def create_person
-    puts ' Do you want to create a student (1) or a teacher (2)? [Input the number]: '
-    person_option = gets.chomp.to_i
-
-    case person_option
-    when 1
-      print 'Age: '
-      user_age = gets.chomp.to_i
-
-      print 'Name: '
-      user_name = gets.chomp
-
-      print 'Has parent permission? [Y/N]: '
-      user_permission = gets.chomp.to_s.upcase
-
-      case user_permission
-      when 'Y'
-        user_permission = true
-      when 'N'
-        user_permission = false
-      end
-      student = Student.new(user_age, user_name, parent_permission: user_permission)
-      @person_array << {
-        output: "[Student] Name: #{student.name}, ID: #{student.id}, Age: #{student.age}",
-        object: student
-      }
-
-      puts 'Person created successfully!'
-      puts "\n"
-    when 2
-      print 'Age: '
-      user_age = gets.chomp.to_i
-
-      print 'Name: '
-      user_name = gets.chomp
-
-      print 'Specialization: '
-      user_specialization = gets.chomp
-
-      teacher = Teacher.new(user_age, user_name, user_specialization)
-      @person_array << {
-        output: "[Teacher] Name: #{teacher.name}, ID: #{teacher.id}, Age: #{teacher.age}",
-        object: teacher
-      }
-
-      puts 'Person created successfully!'
-      puts "\n"
-    else
-      puts 'Person not created.'
-    end
-  end
 
   def create_book
     print 'Title: '
@@ -134,21 +82,21 @@ class Methods
   def create_rental
     puts 'Select a book from the following list by number: '
     @books.each_with_index { |val, index| puts "(#{index}) #{val[:output]}" }
-    book_selected = gets.chomp.to_i
+    book_chosen = gets.chomp.to_i
     if @books.empty?
-      puts "Empty"
-      return 
+      puts 'Empty'
+      return
     end
-    
+
     puts 'Select a person from the following list by number (not id): '
     @person_array.each_with_index do |person, index|
       puts "#{index}) #{person[:output]}"
     end
     person_selected = gets.chomp.to_i
     person_chosen = @person_array[person_selected][:object]
-    
+
     if @person_array.empty?
-      puts "Empty"
+      puts 'Empty'
       return
     end
 
@@ -170,5 +118,4 @@ class Methods
       end
     end
   end
-
 end
