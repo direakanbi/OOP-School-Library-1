@@ -1,8 +1,8 @@
-require_relative('./books')
-require_relative('./person')
-require_relative('./student')
-require_relative('./teacher')
-require_relative('./rentals')
+require_relative 'books'
+require_relative 'person'
+require_relative 'student'
+require_relative 'teacher'
+require_relative 'rentals'
 
 class Methods
   def initialize
@@ -13,12 +13,12 @@ class Methods
 
   def create_person
     puts ' Do you want to create a student (1) or a teacher (2)? [Input the number]: '
-    person_option = Integer(gets.chomp)
+    person_option = gets.chomp.to_i
 
     case person_option
     when 1
       print 'Age: '
-      user_age = Integer(gets.chomp)
+      user_age = gets.chomp.to_i
 
       print 'Name: '
       user_name = gets.chomp
@@ -33,16 +33,16 @@ class Methods
         user_permission = false
       end
       student = Student.new(user_age, user_name, parent_permission: user_permission)
-      @person_array.push({
-                           output: "[Student] Name: #{student.name}, ID: #{student.id}, Age: #{student.age}",
-                           object: student
-                         })
+      @person_array << {
+        output: "[Student] Name: #{student.name}, ID: #{student.id}, Age: #{student.age}",
+        object: student
+      }
 
       puts 'Person created successfully!'
       puts "\n"
     when 2
       print 'Age: '
-      user_age = Integer(gets.chomp)
+      user_age = gets.chomp.to_i
 
       print 'Name: '
       user_name = gets.chomp
@@ -51,10 +51,10 @@ class Methods
       user_specialization = gets.chomp
 
       teacher = Teacher.new(user_age, user_name, user_specialization)
-      @person_array.push({
-                           output: "[Teacher] Name: #{teacher.name}, ID: #{teacher.id}, Age: #{teacher.age}",
-                           object: teacher
-                         })
+      @person_array << {
+        output: "[Teacher] Name: #{teacher.name}, ID: #{teacher.id}, Age: #{teacher.age}",
+        object: teacher
+      }
 
       puts 'Person created successfully!'
       puts "\n"
@@ -73,50 +73,42 @@ class Methods
     puts 'Book created successfully!'
 
     book = Book.new(book_title, book_author)
-    @books.push({
-                  output: "Title: #{book.title}, Author: #{book.author}",
-                  object: book
-                })
+
+    @books << { output: "Title: #{book.title}, Author: #{book.author}", object: book }
   end
 
   def book_list
-    @books.each do |book|
-      puts book[:output]
-    end
+    @books.each { |book| puts book[:output] }
   end
 
   def people_list
-    @person_array.each do |person|
-      puts person[:output]
-    end
+    @person_array.each { |person| puts person[:output] }
   end
 
   def create_rental
     puts 'Select a book from the following list by number: '
-    @books.each_with_index do |book, index|
-      puts "#{index}) #{book[:output]}"
-    end
-    book_selected = Integer(gets.chomp)
+    @books.each_with_index { |val, index| puts "(#{index}) #{val[:output]}" }
+
+    book_selected = gets.chomp.to_i
     book_chosen = @books[book_selected][:object]
 
     puts 'Select a person from the following list by number (not id): '
     @person_array.each_with_index do |person, index|
       puts "#{index}) #{person[:output]}"
     end
-    person_selected = Integer(gets.chomp)
+    person_selected = gets.chomp.to_i
     person_chosen = @person_array[person_selected][:object]
 
     print 'Date: '
     rental_date = gets.chomp
 
-    @rental_array.push(Rental.new(rental_date, book_chosen, person_chosen))
+    @rental_array << Rental.new(rental_date, book_chosen, person_chosen)
   end
 
   def rental_list
     print 'ID of person: '
-    person_id = Integer(gets.chomp)
+    person_id = gets.chomp.to_i
     puts 'Rental: '
-
     @rental_array.each do |rental|
       if person_id == rental.person.id
         puts "Date: #{rental.date}, Book: \"#{rental.book.title}\" by #{rental.book.author}"
@@ -147,7 +139,7 @@ class App
       puts "#{index} - #{string}"
     end
 
-    Integer(gets.chomp)
+    gets.chomp.to_i
   end
 
   method = Methods.new
