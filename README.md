@@ -22,8 +22,8 @@ To get started with this project, follow the below steps
 
 👤 **Mwafrika Mufungizi Josué**
 
-- GitHub: [@Dire Akanbi](https://github.com/direakanbi)
-- LinkedIn: [Dire Akanbi](https://linkedin.com/in/dire-akanbi)
+- GitHub: [@Mwafrika](https://github.com/mwafrika)
+- LinkedIn: [Mwafrika](https://linkedin.com/in/mwafrika-mufungizi)
 
 ## 🤝 Contributing
 
